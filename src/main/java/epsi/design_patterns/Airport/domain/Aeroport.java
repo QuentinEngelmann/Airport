@@ -23,13 +23,13 @@ public class Aeroport {
 	@ManyToOne
 	private Ville ville;
 	
-	public Aeroport(String nom, boolean escale, Collection<Vol1> decoller) {
+	public Aeroport(String nom, boolean escale, Ville ville) {
 		super();
 		this.nom = nom;
 		this.escale = escale;
-		this.decoller = decoller;
 		//this.atterir = atterir;
 		this.ville = ville;
+		ville.getAreoport().add(this);
 	}
 	public Aeroport() {
 		super();

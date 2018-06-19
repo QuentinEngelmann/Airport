@@ -2,10 +2,11 @@ package epsi.design_patterns.Airport.application;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.Optional;
 
-import Airport.services.persistence.Repository;
 import epsi.design_patterns.Airport.domain.Aeroport;
 import epsi.design_patterns.Airport.domain.Billet;
+import epsi.design_patterns.Airport.domain.BilletRepository;
 import epsi.design_patterns.Airport.domain.Client;
 import epsi.design_patterns.Airport.domain.Hotesse;
 import epsi.design_patterns.Airport.domain.Passager;
@@ -14,16 +15,16 @@ import epsi.design_patterns.Airport.domain.Vol1;
 public class GestionBilletClientImplantation implements GestionBilletClient {
 
 	Client client = new Client();
-	Repository<Billet> repository;
+	BilletRepository repository;
 
 	@Override
 	public Billet achatBillet(Date date, int numero, Passager passager, Vol1 vol) {
-		Billet billet = repository.findOne(numero);
+		Billet billet = repository.findById(numero).get();
 		if (billet == null) {
 			billet = new Billet();
 			repository.save(billet);
 		}
-
+		
 		billet.setDate(date);
 		billet.setNumero(numero);
 		billet.setPassager(passager);
